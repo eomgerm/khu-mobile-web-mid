@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_graph"
+  app:startDestination="@id/cctvListFragment">
+
+  <fragment
+    android:id="@+id/cctvListFragment"
+    android:name="com.example.midassignment.CctvListFragment"
+    android:label="fragment_cctv_list"
+    tools:layout="@layout/fragment_cctv_list">
+    <action
+      android:id="@+id/action_cctvListFragment_to_cctvDetailFragment"
+      app:destination="@id/cctvDetailFragment"/>
+  </fragment>
+  <fragment
+    android:id="@+id/cctvDetailFragment"
+    android:name="com.example.midassignment.CctvDetailFragment"
+    android:label="fragment_cctv_detail"
+    tools:layout="@layout/fragment_cctv_detail">
+    <action
+      android:id="@+id/action_cctvDetailFragment_to_cctvListFragment"
+      app:destination="@id/cctvListFragment"/>
+    <argument
+      android:name="cctvId"
+      app:argType="long"/>
+  </fragment>
+</navigation>
