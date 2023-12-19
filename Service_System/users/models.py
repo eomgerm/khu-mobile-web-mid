@@ -14,8 +14,8 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password):
-        superuser = self.create_user(email, password)
+    def create_superuser(self, email, password, username):
+        superuser = self.create_user(email, password, username)
 
         superuser.is_superuser = True
         superuser.is_staff = True
@@ -36,6 +36,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+    REQUIRED_FIELDS = ['username']
 
 
 class FCMToken(models.Model):
