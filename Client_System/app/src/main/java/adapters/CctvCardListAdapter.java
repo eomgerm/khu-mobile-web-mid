@@ -8,22 +8,27 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.midassignment.R;
-import data.Cctv;
-import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+import data.response.CctvResponse;
 
 public class CctvCardListAdapter extends RecyclerView.Adapter<CctvCardListAdapter.ViewHolder> {
 
     private final Context ctx;
-    private List<Cctv> items;
+    private List<CctvResponse> items;
 
-    public CctvCardListAdapter(Context ctx, List<Cctv> items) {
+    public CctvCardListAdapter(Context ctx, List<CctvResponse> items) {
         this.ctx = ctx;
         this.items = items;
     }
@@ -40,7 +45,7 @@ public class CctvCardListAdapter extends RecyclerView.Adapter<CctvCardListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        Cctv cctv = items.get(position);
+        CctvResponse cctv = items.get(position);
         holder.setItem(cctv);
 
         holder.itemView.setOnClickListener(new OnClickListener() {
@@ -59,7 +64,7 @@ public class CctvCardListAdapter extends RecyclerView.Adapter<CctvCardListAdapte
         return items.size();
     }
 
-    public void setItems(List<Cctv> items) {
+    public void setItems(List<CctvResponse> items) {
         this.items = items;
     }
 
@@ -78,7 +83,7 @@ public class CctvCardListAdapter extends RecyclerView.Adapter<CctvCardListAdapte
             cctvImageView = itemView.findViewById(R.id.cctvImage);
         }
 
-        public void setItem(Cctv item) {
+        public void setItem(CctvResponse item) {
             setCctvText(item.getName());
             setCctvImage(item.getCctvUrl());
         }
@@ -88,7 +93,7 @@ public class CctvCardListAdapter extends RecyclerView.Adapter<CctvCardListAdapte
         }
 
         private void setCctvImage(String url) {
-            Glide.with(context).load("https://eomgerm.pythonanywhere.com" + url).into(cctvImageView);
+            Glide.with(context).load("http://10.0.2.2:8000" + url).into(cctvImageView);
         }
     }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "653828812981",
+    "project_id": "khu-mobile-web-final",
+    "storage_bucket": "khu-mobile-web-final.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653828812981:android:8e7434a29f4c3a6a07cefc",
+        "android_client_info": {
+          "package_name": "com.example.midassignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWTu1C0TkTUYhqJZuKnvHV6SDCG-SG1gY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

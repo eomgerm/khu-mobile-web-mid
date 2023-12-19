@@ -4,22 +4,27 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.midassignment.databinding.CctvAlertCardBinding;
-import data.CctvAlert;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
+
+import data.response.CctvAlertResponse;
 
 public class CctvAlertCardListAdapter extends RecyclerView.Adapter<CctvAlertCardListAdapter.ViewHolder> {
 
     private CctvAlertCardBinding binding;
 
-    private List<CctvAlert> items;
+    private List<CctvAlertResponse> items;
 
-    public CctvAlertCardListAdapter(List<CctvAlert> items) {
+    public CctvAlertCardListAdapter(List<CctvAlertResponse> items) {
         this.items = items;
     }
 
@@ -33,7 +38,7 @@ public class CctvAlertCardListAdapter extends RecyclerView.Adapter<CctvAlertCard
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        CctvAlert alert = items.get(position);
+        CctvAlertResponse alert = items.get(position);
         holder.setItem(alert);
     }
 
@@ -42,7 +47,7 @@ public class CctvAlertCardListAdapter extends RecyclerView.Adapter<CctvAlertCard
         return items.size();
     }
 
-    public void setItems(List<CctvAlert> items) {
+    public void setItems(List<CctvAlertResponse> items) {
         this.items = items;
     }
 
@@ -60,7 +65,7 @@ public class CctvAlertCardListAdapter extends RecyclerView.Adapter<CctvAlertCard
             alertCctvImageView = binding.alertCctvImage;
         }
 
-        public void setItem(CctvAlert item) {
+        public void setItem(CctvAlertResponse item) {
             setAlertTime(item.getAlertTime().format(DateTimeFormatter.ofPattern("HH:mm")));
             setAlertCctvImage(item.getAlertImage());
         }
@@ -70,7 +75,7 @@ public class CctvAlertCardListAdapter extends RecyclerView.Adapter<CctvAlertCard
         }
 
         public void setAlertCctvImage(String url) {
-            Glide.with(binding.getRoot()).load("https://eomgerm.pythonanywhere.com" + url).into(alertCctvImageView);
+            Glide.with(binding.getRoot()).load("http://10.0.2.2:8000" + url).into(alertCctvImageView);
         }
     }
 }

@@ -1,21 +1,26 @@
 package com.example.midassignment;
 
-import adapters.CctvCardListAdapter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
+
 import com.example.midassignment.databinding.FragmentCctvListBinding;
-import data.Cctv;
-import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+import adapters.CctvCardListAdapter;
+import data.response.CctvResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +40,7 @@ public class CctvListFragment extends Fragment {
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         binding = FragmentCctvListBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
@@ -54,11 +59,11 @@ public class CctvListFragment extends Fragment {
     }
 
     private void getCctvsAndSetList() {
-        CctvService service = RetrofitClient.getRetrofitInstance().create(CctvService.class);
-        Call<List<Cctv>> call = service.getCctvs();
-        call.enqueue(new Callback<List<Cctv>>() {
+        CctvService service = RetrofitClient.getRetrofitInstance(getContext()).create(CctvService.class);
+        Call<List<CctvResponse>> call = service.getCctvs();
+        call.enqueue(new Callback<List<CctvResponse>>() {
             @Override
-            public void onResponse(Call<List<Cctv>> call, Response<List<Cctv>> response) {
+            public void onResponse(Call<List<CctvResponse>> call, Response<List<CctvResponse>> response) {
                 if (response.code() == 200 && response.body() != null) {
                     setRecyclerView(response.body());
                 } else {
@@ -67,14 +72,14 @@ public class CctvListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Cctv>> call, Throwable t) {
+            public void onFailure(Call<List<CctvResponse>> call, Throwable t) {
                 Log.e("CCTV Detail", "Load Data Failed" + t.getMessage(), t);
                 Toast.makeText(binding.getRoot().getContext(), "Error!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void setRecyclerView(List<Cctv> cctvs) {
+    private void setRecyclerView(List<CctvResponse> cctvs) {
         RecyclerView recyclerView = binding.cctvCardList;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -86,11 +91,11 @@ public class CctvListFragment extends Fragment {
     }
 
     private void refresh() {
-        CctvService service = RetrofitClient.getRetrofitInstance().create(CctvService.class);
-        Call<List<Cctv>> call = service.getCctvs();
-        call.enqueue(new Callback<List<Cctv>>() {
+        CctvService service = RetrofitClient.getRetrofitInstance(getContext()).create(CctvService.class);
+        Call<List<CctvResponse>> call = service.getCctvs();
+        call.enqueue(new Callback<List<CctvResponse>>() {
             @Override
-            public void onResponse(Call<List<Cctv>> call, Response<List<Cctv>> response) {
+            public void onResponse(Call<List<CctvResponse>> call, Response<List<CctvResponse>> response) {
                 if (response.code() == 200 && response.body() != null) {
                     adapter.setItems(response.body());
                     adapter.notifyDataSetChanged();
@@ -100,7 +105,7 @@ public class CctvListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Cctv>> call, Throwable t) {
+            public void onFailure(Call<List<CctvResponse>> call, Throwable t) {
                 Log.e("CCTV Detail", "Load Data Failed" + t.getMessage(), t);
                 Toast.makeText(binding.getRoot().getContext(), "Error!", Toast.LENGTH_SHORT).show();
             }
